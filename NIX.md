@@ -76,7 +76,7 @@ Use the Limine bootloader (will fully set up for Limine usage):
 ```sh
 nix-shell --arg bootloader '"limine"'
 # Should now use Limine by default:
-make
+make run
 ```
 
 ### Targetting Other Architectures
@@ -89,9 +89,9 @@ TODO
 
 ## Theseus, Nix, and Rust Toolchains
 
-Theseus's Rust codebase and the locked versions of its dependencies rely on not only nightly Rust, but a specific nightly build. This is not an issue for systems using rustup, however, Nix's package manager is at its core and not only is using something like rustup looked down on, but it may not even work on NixOS. Normally, when Theseus is built using cargo, it will see the rust-toolchain.toml file and use rustup to install that toolchain to use instead. Nix, however, only provides the latest _stable_ Rust in Nixpkgs, and the wrapped toolchain components that come with it do not do this. This is an obvious problem.  Luckily, though, there is an easy solution:
+Theseus's Rust codebase and the locked versions of its dependencies rely on not only nightly Rust, but a specific nightly build. This is not an issue for systems using rustup, however, Nix's package manager is at its core and not only is using something like rustup looked down on, but it may not even work on NixOS. Normally, when Theseus is built using cargo, it will see the rust-toolchain.toml file and use rustup to install that toolchain to use instead. Nix, however, only provides the latest _stable_ Rust in Nixpkgs, and the wrapped toolchain components that come with it do not do this. This is an obvious problem.  
 
-[Oxalica's rust-overlay](https://github.com/oxalica/rust-overlay/tree/master). Using this, we can easily produce a working, NixOS-compatible Rust toolchain from a Rust toolchain file, such as the one that provides the toolchain definition for Theseus, ([rust-toolchain.toml](./rust-toolchain.toml)).
+Luckily, though, there is an easy solution: [Oxalica's rust-overlay](https://github.com/oxalica/rust-overlay/tree/master). Using this, we can easily produce a working, NixOS-compatible Rust toolchain from a Rust toolchain file, such as the one that provides the toolchain definition for Theseus, ([rust-toolchain.toml](./rust-toolchain.toml)).
 
 This toolchain is provided by the [rust-toolchain.nix](./rust-toolchain.nix) file. You can import it directly to produce a Rust toolchain for Theseus but its main use is in the Theseus Nix shell. 
 
