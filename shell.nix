@@ -39,7 +39,7 @@
   requiredLimineCommit ? "3f6a330",
 }:
 let
-  inherit (lib) strings.optionalString;
+  inherit (lib.strings) optionalString;
 
   gitOutputHandler = "while read line; do echo \" > $line\"; done";
 
@@ -54,7 +54,7 @@ assert pkgs.lib.asserts.assertMsg
   "\"${bootloader}\" is not a valid value for argument \"bootloader\". Please see the Theseus \
     Nix shell documentation in `Theseus/NIX.md`.";
 pkgs.mkShell {
-  packages = with pkgs; [
+  nativeBuildInputs = with pkgs; [
     # See NIX.md and rust-toolchain.nix.
     rustToolchain
     # Misc dependancies mentioned in the README
